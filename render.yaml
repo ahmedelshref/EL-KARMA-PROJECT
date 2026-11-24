@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: el-karma-projects
+    runtime: node
+    buildCommand: npm install
+    startCommand: npm start
+    disk:
+      name: el-karma-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: DATA_FILE
+        value: /var/data/el-karma-data.json

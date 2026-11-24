@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#101813">
+    <meta name="description" content="دليل مشاريع ووحدات El Karma Group">
+    <title>El Karma Projects | مشروعات الكرمة</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="data.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="ambient ambient-one" aria-hidden="true"></div>
+    <div class="ambient ambient-two" aria-hidden="true"></div>
+    <div class="site-frame">
+      <header class="site-header">
+        <a class="brand" href="#home" aria-label="El Karma Projects، الرئيسية">
+          <img class="brand-mark" src="assets/brand/el-karma-mark.png" alt="" width="48" height="48" decoding="async">
+          <span class="brand-copy"><strong>EL KARMA</strong><small>PROJECTS DIRECTORY</small></span>
+        </a>
+        <div class="header-actions">
+          <span class="header-note"><i aria-hidden="true"></i> دليل مشروعات الشركة</span>
+          <button class="admin-open-button" id="admin-open-button" type="button" aria-label="فتح لوحة التحكم" title="لوحة التحكم">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 20l4.1-1 9.95-9.95a2.12 2.12 0 0 0-3-3L5.1 16 4 20Z"></path>
+              <path d="m13.75 7.35 3 3"></path>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <div class="project-orbits" id="project-orbits" aria-hidden="true"></div>
+
+      <main>
+        <section class="landing-view" id="landing-view" aria-labelledby="landing-title">
+          <div class="landing-content">
+            <p class="eyebrow"><span class="eyebrow-line"></span> اكتشف مشاريع الكرمة</p>
+            <h1 id="landing-title">مشروعك القادم<br><em>يبدأ من هنا.</em></h1>
+            <p class="landing-copy">اختر مشروعًا، ابحث عن وحدتك، واطّلع على تفاصيلها في مكان واحد.</p>
+            <button class="project-launch" id="project-picker-trigger" type="button" aria-haspopup="dialog" aria-controls="project-dialog">
+              <span class="launch-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 4.5 4.5"></path></svg>
+              </span>
+              <span class="launch-copy"><small>ابدأ بالاختيار</small><strong>اكتب اسم المشروع أو اختر من القائمة</strong></span>
+              <span class="launch-arrow" aria-hidden="true">↙</span>
+            </button>
+            <div class="landing-meta"><span id="landing-project-count">—</span><span>مشروعًا</span><i>·</i><span class="total-units" id="landing-unit-count">—</span><span>وحدة مسجلة</span></div>
+          </div>
+          <div class="landing-footer"><span>EL KARMA GROUP</span><span>تفاصيل أوضح. اختيار أسهل.</span></div>
+        </section>
+
+        <section class="project-view" id="project-view" hidden aria-labelledby="project-title">
+          <div class="project-view-top">
+            <button class="back-button" id="back-to-home" type="button"><span aria-hidden="true">→</span> كل المشاريع</button>
+            <span class="section-index">دليل المشروعات <i>/</i> الوحدات</span>
+          </div>
+
+          <section class="project-heading">
+            <div>
+              <p class="eyebrow"><span class="eyebrow-line"></span> المشروع المختار</p>
+              <h1 id="project-title"></h1>
+              <p class="project-description">تظهر الوحدات المتاحة أولًا؛ ويمكنك عرض كل الوحدات عند الحاجة.</p>
+            </div>
+            <div class="project-count-card"><strong id="project-unit-count">—</strong><span id="project-unit-count-label">وحدة متاحة</span></div>
+          </section>
+
+          <section class="payment-plan" id="payment-plan" aria-label="معلومات المشروع والخطة المالية"></section>
+
+          <section class="units-section" aria-labelledby="units-heading">
+            <div class="units-heading-row">
+              <div><p class="eyebrow">اختيار الوحدة</p><h2 id="units-heading">الوحدات المتاحة</h2></div>
+              <div class="unit-mode-actions">
+                <span class="results-count" id="unit-results-count"></span>
+                <button class="unit-mode-toggle" id="unit-mode-toggle" type="button" aria-pressed="false">
+                  <span id="unit-mode-label">عرض كل الوحدات</span>
+                  <strong id="unit-mode-count">—</strong>
+                </button>
+              </div>
+            </div>
+            <div class="unit-search-row">
+              <label class="unit-search">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 4.5 4.5"></path></svg>
+                <input id="unit-search" type="search" placeholder="ابحث برقم الوحدة، المساحة أو النوع" autocomplete="off">
+              </label>
+            </div>
+            <div class="units-grid" id="units-grid" aria-live="polite"></div>
+          </section>
+          <footer class="project-footer"><span>EL KARMA PROJECTS</span><span>المعلومات المعروضة من ملف بيانات محلي.</span></footer>
+        </section>
+      </main>
+    </div>
+
+    <dialog class="dialog project-dialog" id="project-dialog" aria-labelledby="project-dialog-title">
+      <div class="dialog-heading">
+        <div><p class="eyebrow">ابدأ رحلتك</p><h2 id="project-dialog-title">اختر المشروع</h2></div>
+        <button class="dialog-close" type="button" data-close-project aria-label="إغلاق">×</button>
+      </div>
+      <label class="dialog-search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 4.5 4.5"></path></svg>
+        <input id="project-search" type="search" placeholder="اكتب اسم المشروع..." autocomplete="off">
+      </label>
+      <div class="project-options" id="project-options" role="list"></div>
+    </dialog>
+
+    <dialog class="dialog unit-dialog" id="unit-dialog" aria-labelledby="unit-dialog-title">
+      <div class="dialog-heading unit-dialog-heading">
+        <div><p class="eyebrow">تفاصيل كاملة للوحدة</p><h2 id="unit-dialog-title"></h2></div>
+        <button class="dialog-close" type="button" data-close-unit aria-label="إغلاق">×</button>
+      </div>
+      <div class="unit-dialog-body">
+        <section class="unit-facts-section" aria-label="بيانات الوحدة">
+          <div class="unit-facts" id="unit-facts"></div>
+          <div class="unit-payment-details" id="unit-payment-details"></div>
+        </section>
+        <section class="unit-plan-section" aria-label="المخطط والتصميم الهندسي">
+          <div class="plan-heading"><p class="eyebrow">المخطط والتصميم</p><h3>تصميم الوحدة</h3></div>
+          <img class="unit-plan-image" id="unit-plan-image" alt="" tabindex="0" role="button" aria-label="تكبير المخطط" hidden>
+          <p class="plan-reuse-note" id="unit-plan-reuse-note" hidden>مخطط لوحدة أخرى في المشروع نفسه وبالمساحة نفسها.</p>
+          <div class="plan-unavailable" id="plan-unavailable" hidden>
+            <span class="plan-unavailable-mark" aria-hidden="true">⌑</span>
+            <strong>المخطط غير متوفر حاليًا</strong>
+            <p>لم نعثر على صورة مؤكدة لهذه الوحدة ضمن الملفات المحلية.</p>
+          </div>
+        </section>
+      </div>
+      <div class="unit-actions" aria-label="مشاركة تفاصيل الوحدة">
+        <button class="unit-action-button" id="unit-plan-action" type="button" hidden>تنزيل / مشاركة المخطط</button>
+        <button class="unit-action-button unit-action-secondary" id="unit-details-action" type="button">مشاركة تفاصيل الوحدة وخطة السداد</button>
+      </div>
+      <p class="unit-action-feedback" id="unit-action-feedback" role="status" aria-live="polite" hidden></p>
+      <textarea class="unit-message-preview" id="unit-message-preview" aria-label="رسالة الوحدة الجاهزة للنسخ" readonly hidden></textarea>
+      <p class="dialog-disclaimer">بيانات المعاينة محلية وليست متصلة بمصدر الأسعار المباشر.</p>
+    </dialog>
+
+    <dialog class="dialog admin-dialog" id="admin-dialog" aria-labelledby="admin-dialog-title">
+      <div class="dialog-heading">
+        <div><p class="eyebrow">تعديل البيانات</p><h2 id="admin-dialog-title">لوحة التحكم</h2></div>
+        <button class="dialog-close" type="button" data-close-admin aria-label="إغلاق">×</button>
+      </div>
+
+      <form id="admin-login-form" class="admin-form">
+        <label>كلمة المرور
+          <input id="admin-password" type="password" autocomplete="current-password" required>
+        </label>
+        <button class="admin-primary-button" type="submit">دخول</button>
+        <p class="admin-feedback" id="admin-login-feedback" role="status" hidden></p>
+      </form>
+
+      <div id="admin-editor" hidden>
+        <div class="admin-toolbar">
+          <strong>التعديلات تنعكس على الموقع لجميع المستخدمين.</strong>
+          <button class="admin-secondary-button" id="admin-logout" type="button">خروج</button>
+        </div>
+        <div class="admin-project-actions">
+          <button class="admin-secondary-button" id="admin-add-project" type="button">إضافة مشروع جديد</button>
+          <button class="admin-danger-button" id="admin-delete-project" type="button">حذف المشروع الحالي</button>
+        </div>
+        <section class="admin-import">
+          <h3>استيراد مشروع جديد من سعر القائمة</h3>
+          <div class="admin-grid">
+            <label>اسم المشروع الجديد<input id="admin-import-project-name" type="text" placeholder="مثال: مشروع القاهرة"></label>
+            <label>ملف السعر القائمة
+              <input id="admin-import-file" type="file" accept=".xlsx,.xls,.csv,.json">
+            </label>
+            <label>نسبة التحميل %<input id="admin-import-loading-rate" type="number" min="0" max="100" value="0"></label>
+            <label>وديعة الصيانة %<input id="admin-import-maintenance-rate" type="number" min="0" max="100" value="0"></label>
+          </div>
+          <button class="admin-primary-button" id="admin-import-button" type="button">استيراد وإنشاء المشروع</button>
+        </section>
+        <div class="admin-grid">
+          <label>المشروع
+            <select id="admin-project-select"></select>
+          </label>
+          <label>الوحدة
+            <select id="admin-unit-select"></select>
+          </label>
+        </div>
+        <form id="admin-project-form" class="admin-form">
+          <h3>بيانات المشروع</h3>
+          <div class="admin-grid">
+            <label>اسم المشروع<input id="admin-project-name" type="text"></label>
+            <label>مقدم الوحدة %<input id="admin-down-payment" type="number" min="0" max="100"></label>
+            <label>خصم الكاش %<input id="admin-cash-discount" type="number" min="0" max="100"></label>
+            <label>رسوم الصيانة %<input id="admin-maintenance-rate" type="number" min="0" max="100"></label>
+            <label>نسبة التحميل %<input id="admin-loading-rate" type="number" min="0" max="100"></label>
+            <label>وديعة الصيانة %<input id="admin-maintenance-deposit" type="number" min="0" max="100"></label>
+            <label>سنوات السداد<input id="admin-years" type="number" min="1"></label>
+            <label>دفعات سنويًا<input id="admin-payments-per-year" type="number" min="1"></label>
+          </div>
+          <button class="admin-primary-button" type="submit">حفظ بيانات المشروع</button>
+        </form>
+        <form id="admin-unit-form" class="admin-form">
+          <h3>بيانات الوحدة</h3>
+          <div class="admin-grid">
+            <label>رقم الوحدة<input id="admin-unit-number" type="text"></label>
+            <label>المساحة م²<input id="admin-unit-area" type="number" min="0" step="0.01"></label>
+            <label>النوع<input id="admin-unit-type" type="text"></label>
+            <label>الحالة
+              <select id="admin-unit-status">
+                <option value="متاحة">متاحة</option>
+                <option value="محجوزة">محجوزة</option>
+                <option value="مباعة">مباعة</option>
+                <option value="موقوفة">موقوفة</option>
+              </select>
+            </label>
+            <label>الدور<input id="admin-unit-floor" type="text"></label>
+            <label>المبنى<input id="admin-unit-building" type="text"></label>
+            <label>الإطلالة<input id="admin-unit-view" type="text"></label>
+            <label>سعر المتر<input id="admin-unit-meter-price" type="number" min="0"></label>
+            <label>السعر الإجمالي<input id="admin-unit-price" type="number" min="0"></label>
+          </div>
+          <div class="admin-unit-actions">
+            <button class="admin-primary-button" type="submit">حفظ الوحدة</button>
+            <button class="admin-danger-button" id="admin-delete-unit" type="button">حذف الوحدة</button>
+          </div>
+        </form>
+        <button class="admin-secondary-button" id="admin-add-unit" type="button">إضافة وحدة جديدة للمشروع</button>
+        <p class="admin-feedback" id="admin-editor-feedback" role="status" hidden></p>
+      </div>
+    </dialog>
+  </body>
+</html>
