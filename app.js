@@ -15,6 +15,7 @@ const projectUnitTerms = {
 };
 
 const planImages = {
+  sevana: {},
   karnak: {
     "101": "assets/karnak/101.jpg",
     "201": "assets/karnak/101.jpg",
@@ -136,7 +137,6 @@ const planImages = {
   },
 };
 const sevanaProject = projects.find((project) => project.id === "sevana");
-planImages.sevana = {};
 const sevanaLayoutsByArea = {
   25: "assets/sevana-layouts/25-layout.jpg",
   49: "assets/sevana-layouts/49-layout.jpg",
@@ -149,35 +149,49 @@ const sevanaLayoutsByArea = {
   95: "assets/sevana-layouts/95-layout.jpg",
   139: "assets/sevana-layouts/139-layout.jpg",
 };
-
-for (const [areaText, imagePath] of Object.entries(sevanaLayoutsByArea)) {
-  const sourceUnit = sevanaProject?.units.find((unit) => Number(unit.area) === Number(areaText));
-  if (sourceUnit) {
-    planImages.sevana[String(sourceUnit.number)] = imagePath;
-  }
-}
 const planImagesByArea = new Map();
 
-for (const project of projects) {
-  const projectImages = planImages[project.id];
-  if (!projectImages) continue;
+function rebuildPlanLookups(projectList) {
+  planImagesByArea.clear();
 
-  const unitsByNumber = new Map(project.units.map((unit) => [String(unit.number), unit]));
-  const imagesByArea = new Map();
-  for (const [unitNumber, imagePath] of Object.entries(projectImages)) {
-    const sourceUnit = unitsByNumber.get(unitNumber);
-    if (!sourceUnit) {
-      throw new Error(`Plan image mapping references unknown unit ${project.id}/${unitNumber}.`);
+  for (const project of projectList) {
+    if (project.id === "sevana") {
+      planImages.sevana = {};
+      for (const unit of project.units) {
+        const imagePath = sevanaLayoutsByArea[Number(unit.area)];
+        if (imagePath) planImages.sevana[String(unit.number)] = imagePath;
+      }
     }
 
-    const area = Number(sourceUnit.area);
-    if (!Number.isFinite(area) || area <= 0) {
-      throw new Error(`Plan image mapping has an invalid source area for ${project.id}/${unitNumber}.`);
+    const projectImages = planImages[project.id];
+    if (!projectImages) continue;
+
+    const unitsByNumber = new Map(project.units.map((unit) => [String(unit.number), unit]));
+    const imagesByArea = new Map();
+    for (const [unitNumber, imagePath] of Object.entries(projectImages)) {
+      const sourceUnit = unitsByNumber.get(unitNumber);
+      if (!sourceUnit) {
+        continue;
+      }
+
+      const area = Number(sourceUnit.area);
+      if (!Number.isFinite(area) || area <= 0) {
+        continue;
+      }
+      if (!imagesByArea.has(area)) imagesByArea.set(area, imagePath);
     }
-    if (!imagesByArea.has(area)) imagesByArea.set(area, imagePath);
+    planImagesByArea.set(project.id, imagesByArea);
   }
-  planImagesByArea.set(project.id, imagesByArea);
+
+  if (projectList.some((project) => project.id === "sevana")) {
+    const sevanaImagesByArea = new Map(
+      Object.entries(sevanaLayoutsByArea).map(([area, imagePath]) => [Number(area), imagePath]),
+    );
+    planImagesByArea.set("sevana", sevanaImagesByArea);
+  }
 }
+
+rebuildPlanLookups(projects);
 
 const statusClassNames = {
   "متاحة": "status-available",
@@ -1310,6 +1324,7 @@ async function loadProjectsFromServer() {
     if (!Array.isArray(remoteProjects) || remoteProjects.length === 0) return;
     projects = remoteProjects;
     window.COMPANY_PROJECTS = remoteProjects;
+    rebuildPlanLookups(projects);
     document.querySelector("#landing-project-count").textContent = formatNumber(projects.length);
     document.querySelector("#landing-unit-count").textContent = formatNumber(projects.reduce((sum, project) => sum + project.units.length, 0));
   } catch {}
