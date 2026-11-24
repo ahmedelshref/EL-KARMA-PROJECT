@@ -39,7 +39,7 @@
         <section class="landing-view" id="landing-view" aria-labelledby="landing-title">
           <div class="landing-content">
             <p class="eyebrow"><span class="eyebrow-line"></span> اكتشف مشاريع الكرمة</p>
-            <h1 id="landing-title">مشروعك القادم<br><em>يبدأ من هنا.</em></h1>
+            <h1 id="landing-title" dir="ltr">Your Project Library<br><em>Wherever You Are.</em></h1>
             <p class="landing-copy">اختر مشروعًا، ابحث عن وحدتك، واطّلع على تفاصيلها في مكان واحد.</p>
             <button class="project-launch" id="project-picker-trigger" type="button" aria-haspopup="dialog" aria-controls="project-dialog">
               <span class="launch-icon" aria-hidden="true">
@@ -85,6 +85,16 @@
               <label class="unit-search">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 4.5 4.5"></path></svg>
                 <input id="unit-search" type="search" placeholder="ابحث برقم الوحدة، المساحة أو النوع" autocomplete="off">
+              </label>
+              <label class="unit-sort">
+                <span>ترتيب حسب</span>
+                <select id="unit-sort" aria-label="ترتيب الوحدات">
+                  <option value="default">الترتيب الافتراضي</option>
+                  <option value="area-asc">المساحة: الأصغر للأكبر</option>
+                  <option value="area-desc">المساحة: الأكبر للأصغر</option>
+                  <option value="price-asc">السعر: الأرخص للأغلى</option>
+                  <option value="price-desc">السعر: الأغلى للأرخص</option>
+                </select>
               </label>
             </div>
             <div class="units-grid" id="units-grid" aria-live="polite"></div>

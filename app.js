@@ -547,6 +547,7 @@ function selectProject(project) {
   projectView.hidden = false;
   document.querySelector("#project-title").textContent = project.name;
   document.querySelector("#unit-search").value = "";
+  document.querySelector("#unit-sort").value = "default";
   renderPaymentPlan(document.querySelector("#payment-plan"), project);
   renderUnitModeControls();
   renderUnits();
@@ -627,6 +628,25 @@ function renderUnits() {
       .toLocaleLowerCase("ar");
     return searchable.includes(query) && (showAllUnits || isAvailableUnit(unit));
   });
+  const sortOptions = {
+    "area-asc": { field: "area", direction: 1 },
+    "area-desc": { field: "area", direction: -1 },
+    "price-asc": { field: "price", direction: 1 },
+    "price-desc": { field: "price", direction: -1 },
+  };
+  const sort = sortOptions[document.querySelector("#unit-sort").value];
+  if (sort) {
+    matches.sort((first, second) => {
+      const firstValue = Number(first[sort.field]);
+      const secondValue = Number(second[sort.field]);
+      const hasFirstValue = Number.isFinite(firstValue) && firstValue > 0;
+      const hasSecondValue = Number.isFinite(secondValue) && secondValue > 0;
+      if (!hasFirstValue || !hasSecondValue) {
+        return hasFirstValue === hasSecondValue ? 0 : hasFirstValue ? -1 : 1;
+      }
+      return (firstValue - secondValue) * sort.direction;
+    });
+  }
 
   grid.replaceChildren();
   document.querySelector("#unit-results-count").textContent = showAllUnits
@@ -1332,6 +1352,7 @@ async function loadProjectsFromServer() {
 
 loadProjectsFromServer();
 document.querySelector("#unit-search").addEventListener("input", renderUnits);
+document.querySelector("#unit-sort").addEventListener("change", renderUnits);
 unitDetailsAction.addEventListener("click", shareUnitDetails);
 unitPlanAction.addEventListener("click", shareUnitPlan);
 document.querySelector("#unit-mode-toggle").addEventListener("click", () => {
