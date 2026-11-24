@@ -6,12 +6,17 @@ if (!Array.isArray(projects) || projects.length === 0) {
 
 const sevanaUnitTerms = { loadingRate: 30, maintenanceDepositRate: 8 };
 const projectUnitTerms = {
+  "golden-home-1": { loadingRate: 25, maintenanceDepositRate: 8 },
+  "golden-home-2": { loadingRate: 25, maintenanceDepositRate: 8 },
   "karma-la-vida": { loadingRate: 25, maintenanceDepositRate: 5 },
+  "ibiza-bay": { loadingRate: 30, maintenanceDepositRate: 10 },
+  "el-inter": { loadingRate: 30, maintenanceDepositRate: 5 },
+  "al-jawhara": { loadingRate: 25, maintenanceDepositRate: 5 },
   sevana: sevanaUnitTerms,
   "سيفانا": sevanaUnitTerms,
   karnak: { loadingRate: 25, maintenanceDepositRate: 8 },
   "el-hijaz-hub": { loadingRate: 30, maintenanceDepositRate: 5 },
-  "el-hadaba-point": { loadingRate: 25, maintenanceDepositRate: 8 },
+  "el-hadaba-point": { loadingRate: 30, maintenanceDepositRate: 5 },
 };
 
 const planImages = {
